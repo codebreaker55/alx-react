@@ -1,0 +1,13 @@
+# Node.js dependencies
+node_modules
+
+# Webpack output files and license files in dist
+/dist/main.js
+/dist/*LICENSE*
+
+# Log files (optional but recommended)
+npm-debug.log
+yarn-error.log
+
+package-lock.json
+
