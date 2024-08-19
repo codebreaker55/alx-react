@@ -1,0 +1,11 @@
+# Node.js dependencies
+node_modules/
+
+# Lock file
+package-lock.json
+
+# Webpack output license files
+*LICENSE*
+
+bundle.js
+public/
