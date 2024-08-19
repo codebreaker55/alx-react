@@ -1,11 +1,5 @@
-# Node.js dependencies
-node_modules/
-
-# Lock file
+node_modules
 package-lock.json
-
-# Webpack output license files
 *LICENSE*
-
 bundle.js
 public/
