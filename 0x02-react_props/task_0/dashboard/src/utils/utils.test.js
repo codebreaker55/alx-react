@@ -1,29 +1,14 @@
-import { getFullYear, getFooterCopy } from '../../../task_1/dashboard/src/utilis';
-import { getLatestNotification } from '../../../task_2/dashboard/src/utilis';
+import { getFullYear, getFooterCopy, getLatestNotification } from "./utils";
 
-
-// a test to check that the function getFullYear returns the correct year
-test('getFullYear returns the correct year', () => {
-    const currentYear = new Date().getFullYear();
-    expect(getFullYear()).toEqual(currentYear)
+test("returns current year", () => {
+  expect(getFullYear()).toBe(2022);
 });
 
+test("correct footer copy", () => {
+  expect(getFooterCopy(true)).toBe("Holberton School");
+  expect(getFooterCopy(false)).toBe("Holberton School main dashboard");
+});
 
-// a test to check that getFooterCopy returns the correct string
-test('getFooterCopy returns the correct string for true', () => {
-    const result = getFooterCopy(true);
-    expect(result).toEqual('Holberton School');
-})
-
-test('getFooterCopy returns the correct string for false', () => {
-    const result = getFooterCopy(false);
-    expect(result).toEqual('Holberton School main dashboard');
-})
-
-
-// a test checking the returned string for getLatestNotification
-test('getLatestNotification returns the correct string', () => {
-    const expectedString = '<strong>Urgent requirement</strong> - complete by EOD';
-    const result =getLatestNotification();
-    expect(result).toEqual(expectedString);
-})
+test("returns right notification", () => {
+  expect(getLatestNotification()).toBe("<strong>Urgent requirement</strong> - complete by EOD");
+});
