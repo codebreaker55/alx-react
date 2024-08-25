@@ -1,15 +1,6 @@
-import React from "react";
-import "./Footer.css";
-import { getFullYear, getFooterCopy } from "../utils/utils";
-
-function Footer() {
-  return (
-    <>
-      <div className="App-footer">
-        Copyright {getFullYear()} - {getFooterCopy()}
-      </div>
-    </>
-  );
+.App-footer {
+  font-size: 1rem;
+  padding: 1.2rem;
+  text-align: center;
+  font-style: italic;
 }
-
-export default Footer;
