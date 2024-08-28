@@ -29,9 +29,9 @@ CourseListRow.propTypes = {
   textSecondCell: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 };
 
-CourseListRow.defaultProps = {
-  isHeader: false,
-  textSecondCell: null,
-};
+//CourseListRow.defaultProps = {
+  //isHeader: false,
+  //textSecondCell: null,
+//};
 
 export default CourseListRow;
