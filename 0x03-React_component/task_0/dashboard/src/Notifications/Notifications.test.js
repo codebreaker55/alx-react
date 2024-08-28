@@ -79,7 +79,6 @@ describe("Notification tests", () => {
     expect(wrapper.containsMatchingElement(<li data-notification-type="default">No new notification for now</li>));
   });
 
-
   it("renders correctly when listNotifications is passed and with the right number of notifications", () => {
      const wrapper = shallow(<Notifications displayDrawer={true} listNotifications={listNotifications} />);
 
