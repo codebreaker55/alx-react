@@ -1,8 +1,8 @@
 import React from "react";
-import "./Notifications.css";
 import PropTypes from "prop-types";
+import "./Notifications.css";
 
-function NotificationItem({ type, html, value }) {
+function NotificationItem({ type = "default", html, value }) {
   return (
     <>
       {type && value ? <li data-notification-type={type}>{value}</li> : null}
@@ -12,15 +12,9 @@ function NotificationItem({ type, html, value }) {
 }
 
 NotificationItem.propTypes = {
-  type: PropTypes.string.isRequired,
+  type: PropTypes.string,
   value: PropTypes.string,
-  __html: PropTypes.shape({
-    html: PropTypes.string,
-  }),
-};
-
-NotificationItem.defaultProps = {
-  type: "default",
+  html: PropTypes.string,
 };
 
 export default NotificationItem;
