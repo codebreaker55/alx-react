@@ -18,7 +18,7 @@ describe("App tests", () => {
 
   it("should render Notifications component", () => {
     const component = shallow(<App />);
-    expect(component.containsMatchingElement(<Notifications />)).toEqual(true);
+    expect(component.find(Notifications).exists()).toBe(true);
   });
 
   it("should render Header component", () => {
@@ -37,15 +37,14 @@ describe("App tests", () => {
   });
 
   it("does not render CourseList if logged out", () => {
-    const component = shallow(<App />);
-    component.setProps({ isLoggedIn: false });
-    expect(component.contains(<CourseList />)).toBe(false);
+    const component = shallow(<App isLoggedIn={false} />);
+    expect(component.find(CourseList).exists()).toBe(false);
   });
 
   it("renders CourseList if logged in", () => {
     const component = shallow(<App isLoggedIn={true} />);
-    expect(component.contains(<CourseList />)).toBe(true);
-    expect(component.contains(<Login />)).toBe(false);
+    expect(component.find(CourseList).exists()).toBe(true);
+    expect(component.find(Login).exists()).toBe(false);
   });
 });
 
