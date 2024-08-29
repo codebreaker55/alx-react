@@ -52,22 +52,22 @@ describe("Keyboard events", () => {
   let originalAlert;
 
   beforeAll(() => {
-    // Save the original alert function
+    // save the original alert function
     originalAlert = window.alert;
   });
 
   beforeEach(() => {
-    // Mock the alert function before each test
+    // mock the alert function before each test
     window.alert = jest.fn();
   });
 
   afterEach(() => {
-    // Restore the original alert function after each test
+    // restore the original alert function after each test
     window.alert.mockRestore();
   });
 
   afterAll(() => {
-    // Restore the original alert function after all tests
+    // restore the original alert function after all tests
     window.alert = originalAlert;
   });
 
@@ -76,7 +76,6 @@ describe("Keyboard events", () => {
     const wrapper = mount(<App logOut={logOutMock} />);
     const event = new KeyboardEvent("keydown", { ctrlKey: true, key: "h" });
     document.dispatchEvent(event);
-
     expect(logOutMock).toHaveBeenCalledTimes(1);
     wrapper.unmount();
   });
@@ -85,7 +84,6 @@ describe("Keyboard events", () => {
     const wrapper = mount(<App />);
     const event = new KeyboardEvent("keydown", { ctrlKey: true, key: "h" });
     document.dispatchEvent(event);
-
     expect(window.alert).toHaveBeenCalled();
     wrapper.unmount();
   });
@@ -94,7 +92,6 @@ describe("Keyboard events", () => {
     const wrapper = mount(<App />);
     const event = new KeyboardEvent("keydown", { ctrlKey: true, key: "h" });
     document.dispatchEvent(event);
-
     expect(window.alert).toHaveBeenCalledWith("Logging you out");
     wrapper.unmount();
   });
