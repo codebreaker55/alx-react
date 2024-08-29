@@ -10,68 +10,92 @@ import Notifications from "../Notifications/Notifications";
 import CourseList from "../CourseList/CourseList";
 import { shallow, mount } from "enzyme";
 
-describe("App tests", () => {
+describe("App component", () => {
   it("renders without crashing", () => {
     const component = shallow(<App />);
-    expect(component).toBeDefined();
+    expect(component.exists()).toBe(true);
   });
+
   it("should render Notifications component", () => {
     const component = shallow(<App />);
-    expect(component.containsMatchingElement(<Notifications />)).toEqual(false);
+    expect(component.find(Notifications).exists()).toBe(true);
   });
+
   it("should render Header component", () => {
     const component = shallow(<App />);
-    expect(component.contains(<Header />)).toBe(true);
+    expect(component.find(Header).exists()).toBe(true);
   });
-  it("should render Login Component", () => {
+
+  it("should render Login component", () => {
     const component = shallow(<App />);
-    expect(component.contains(<Login />)).toBe(true);
+    expect(component.find(Login).exists()).toBe(true);
   });
-  it("should render Footer Component", () => {
+
+  it("should render Footer component", () => {
     const component = shallow(<App />);
-    expect(component.contains(<Footer />)).toBe(true);
+    expect(component.find(Footer).exists()).toBe(true);
   });
-  it("does not render courselist if logged out", () => {
-    const component = shallow(<App />);
-    component.setProps({ isLogedIn: false });
-    expect(component.contains(<CourseList />)).toBe(false);
+
+  it("should not render CourseList if logged out", () => {
+    const component = shallow(<App isLoggedIn={false} />);
+    expect(component.find(CourseList).exists()).toBe(false);
   });
-  it("renders courselist if logged in", () => {
+
+  it("should render CourseList if logged in", () => {
     const component = shallow(<App isLoggedIn={true} />);
-    expect(component.containsMatchingElement(<CourseList />)).toEqual(false);
-    expect(component.contains(<Login />)).toBe(false);
+    expect(component.find(CourseList).exists()).toBe(true);
+    expect(component.find(Login).exists()).toBe(false);
   });
 });
 
-describe("When ctrl + h is pressed", () => {
-  it("calls logOut function", () => {
-    const mocked = jest.fn();
-    const wrapper = mount(<App logOut={mocked} />);
+describe("Keyboard events", () => {
+  let originalAlert;
+
+  beforeAll(() => {
+    // Save the original alert function
+    originalAlert = window.alert;
+  });
+
+  beforeEach(() => {
+    // Mock the alert function before each test
+    window.alert = jest.fn();
+  });
+
+  afterEach(() => {
+    // Restore the original alert function after each test
+    window.alert.mockRestore();
+  });
+
+  afterAll(() => {
+    // Restore the original alert function after all tests
+    window.alert = originalAlert;
+  });
+
+  it("should call logOut function when ctrl + h is pressed", () => {
+    const logOutMock = jest.fn();
+    const wrapper = mount(<App logOut={logOutMock} />);
     const event = new KeyboardEvent("keydown", { ctrlKey: true, key: "h" });
     document.dispatchEvent(event);
-    expect(mocked).toHaveBeenCalledTimes(1);
+
+    expect(logOutMock).toHaveBeenCalledTimes(1);
     wrapper.unmount();
   });
 
-  document.alert = jest.fn();
-  it("checks that alert function is called", () => {
+  it("should call alert function when ctrl + h is pressed", () => {
     const wrapper = mount(<App />);
-    const spy = jest.spyOn(window, "alert");
     const event = new KeyboardEvent("keydown", { ctrlKey: true, key: "h" });
     document.dispatchEvent(event);
-    expect(spy).toHaveBeenCalled();
-    spy.mockRestore();
+
+    expect(window.alert).toHaveBeenCalled();
     wrapper.unmount();
   });
 
-  it('checks that the alert is "Logging you out"', () => {
+  it('should display "Logging you out" alert when ctrl + h is pressed', () => {
     const wrapper = mount(<App />);
-    const spy = jest.spyOn(window, "alert");
     const event = new KeyboardEvent("keydown", { ctrlKey: true, key: "h" });
     document.dispatchEvent(event);
-    expect(spy).toHaveBeenCalledWith("Logging you out");
-    jest.restoreAllMocks();
+
+    expect(window.alert).toHaveBeenCalledWith("Logging you out");
     wrapper.unmount();
   });
-  document.alert.mockClear();
 });
