@@ -12,11 +12,13 @@ const listCourses = [
 describe("CourseList component tests", () => {
   it("should render without crashing", () => {
     const wrapper = shallow(<CourseList />);
+
     expect(wrapper.exists()).toBe(true);
   });
 
   it("renders 5 different rows", () => {
     const wrapper = shallow(<CourseList listCourses={listCourses} />);
+
     expect(wrapper.find("thead").children()).toHaveLength(2);
     wrapper.find("thead").forEach((node) => {
       expect(node.equals(<CourseListRow textFirstCell="Course name" textSecondCell="Credit" isHeader={true} />));
@@ -30,6 +32,7 @@ describe("CourseList component tests", () => {
 
   it("renders correctely when passed a list of courses", () => {
     const wrapper = shallow(<CourseList listCourses={listCourses} />);
+
     expect(wrapper.find("tbody").children()).toHaveLength(3);
     expect(wrapper.find("tbody").childAt(0).html()).toEqual('<tr style="background-color:#f5f5f5ab"><td>ES6</td><td>60</td></tr>');
     expect(wrapper.find("tbody").childAt(1).html()).toEqual('<tr style="background-color:#f5f5f5ab"><td>Webpack</td><td>20</td></tr>');
