@@ -1,0 +1,15 @@
+table {
+  margin: 0;
+  width: auto;
+  border: none;
+  font-size: inherit;
+}
+
+th, td {
+  border: none;
+  width: auto;
+}
+
+tr:nth-child(2) {
+  text-align: inherit;
+}
