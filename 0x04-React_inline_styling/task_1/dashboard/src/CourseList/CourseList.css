@@ -1,15 +1,13 @@
-table {
-  margin: 0;
-  width: auto;
-  border: none;
-  font-size: inherit;
+.course-list th[colspan='2'] {
+  text-align: center;
 }
 
-th, td {
-  border: none;
-  width: auto;
+.course-list th {
+  text-align: left;
+  border-top: 1px solid gray;
+  border-bottom: 1px solid gray;
 }
 
-tr:nth-child(2) {
-  text-align: inherit;
+.course-list td {
+  text-align: left;
 }
