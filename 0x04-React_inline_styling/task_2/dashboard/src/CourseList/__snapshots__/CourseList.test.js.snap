@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CourseList component tests renders correctly when passed a list of courses 1`] = `ShallowWrapper {}`;
+
+exports[`CourseList component tests renders correctly when passed a list of courses 2`] = `ShallowWrapper {}`;
+
+exports[`CourseList component tests renders correctly when passed a list of courses 3`] = `ShallowWrapper {}`;
+
+exports[`CourseList component tests renders the header row and course rows correctly 1`] = `ShallowWrapper {}`;
+
+exports[`CourseList component tests renders the header row and course rows correctly 2`] = `ShallowWrapper {}`;
+
+exports[`CourseList component tests renders the header row and course rows correctly 3`] = `ShallowWrapper {}`;
