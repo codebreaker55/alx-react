@@ -13,12 +13,9 @@ import { StyleSheet, css } from "aphrodite";
 class App extends React.Component {
   constructor(props) {
     super(props);
-
-    // Bind the event handler to the current instance
     this.handleKeyPress = this.handleKeyPress.bind(this);
   }
 
-  // Sample data for courses and notifications
   listCourses = [
     { id: 1, name: "ES6", credit: 60 },
     { id: 2, name: "Webpack", credit: 20 },
@@ -31,7 +28,6 @@ class App extends React.Component {
     { id: 3, type: "urgent", html: getLatestNotification() },
   ];
 
-  // Handler for key press events
   handleKeyPress(e) {
     if (e.ctrlKey && e.key === "h") {
       alert("Logging you out");
@@ -39,12 +35,10 @@ class App extends React.Component {
     }
   }
 
-  // Add event listener on mount
   componentDidMount() {
     document.addEventListener("keydown", this.handleKeyPress);
   }
 
-  // Remove event listener on unmount
   componentWillUnmount() {
     document.removeEventListener("keydown", this.handleKeyPress);
   }
@@ -52,27 +46,31 @@ class App extends React.Component {
   render() {
     return (
       <React.Fragment>
-	    <div className={css(styles.App)}>
-	      <div className="heading-section">
-                <Notifications listNotifications={this.listNotifications} />
-                <Header />
-            </div>
-        {this.props.isLoggedIn ? (
-	  <BodySectionWithMarginBottom title="Course list">
-            <CourseList listCourses={this.listCourses} />
-	  </BodySectionWithMarginBottom>
-        ) : (
-	  <BodySectionWithMarginBottom title="Log in to continue">
-            <Login />
-	  </BodySectionWithMarginBottom>
-        )}
-	<BodySection title="News from the school">
-            <p>
-	    Lorem ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis at tempora odio, necessitatibus repudiandae reiciendis cum nemo sed asperiores ut molestiae eaque aliquam illo ipsa
-              iste vero dolor voluptates.
-	    </p>
-	  </BodySection>
-	  <Footer />
+        <div className={css(styles.App)}>
+          <div className="heading-section">
+            <Notifications listNotifications={this.listNotifications} />
+            <Header />
+          </div>
+          <div className="body">
+            {this.props.isLoggedIn ? (
+              <BodySectionWithMarginBottom title="Course list">
+                <CourseList listCourses={this.listCourses} />
+              </BodySectionWithMarginBottom>
+            ) : (
+              <BodySectionWithMarginBottom title="Log in to continue">
+                <Login />
+              </BodySectionWithMarginBottom>
+            )}
+            <BodySection title="News from the school">
+              <p>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis at tempora odio, necessitatibus repudiandae reiciendis cum nemo sed asperiores ut molestiae eaque aliquam illo ipsa
+                iste vero dolor voluptates.
+              </p>
+            </BodySection>
+          </div>
+          <div className="footer">
+            <Footer />
+          </div>
         </div>
       </React.Fragment>
     );
@@ -88,17 +86,14 @@ const styles = StyleSheet.create({
   },
 });
 
-// Default props for the component
 App.defaultProps = {
   isLoggedIn: false,
   logOut: () => {},
 };
 
-// Prop types for validation
 App.propTypes = {
   isLoggedIn: PropTypes.bool,
   logOut: PropTypes.func,
 };
 
 export default App;
-
