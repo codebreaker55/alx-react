@@ -45,7 +45,7 @@ class Notifications extends Component {
               aria-label="Close"
               onClick={(e) => {
                 console.log("Close button has been clicked");
-		this.props.handleHideDrawer();
+                this.props.handleHideDrawer();
               }}
             >
               <img src={closeIcon} alt="close icon" width="10px" />
@@ -96,31 +96,31 @@ const styles = StyleSheet.create({
   },
 
   "notification-header": {
-	  display: "flex",
-	  justifyContent: "space-between",
+    display: "flex",
+    justifyContent: "space-between",
   },
 
   menuItem: {
-	  position: "relative",
-	  zIndex: 100,
-	  textAlign: "right",
-	  ":hover": {
-		  cursor: "pointer",
-		  animationName: [opacityAnim, bounceAnim],
-		  animationDuration: "1s, 0.5s",
-		  animationIterationCount: "3",
+    position: "relative",
+    zIndex: 100,
+    textAlign: "right",
+    ":hover": {
+      cursor: "pointer",
+      animationName: [opacityAnim, bounceAnim],
+      animationDuration: "1s, 0.5s",
+      animationIterationCount: "3",
     },
   },
 
   ul: {
     "@media (max-width: 900px)": {
-	    padding: 0,
+      padding: 0,
     },
   },
   button: {
     "@media (max-width: 900px)": {
-	    position: "relative",
-	    float: "right",
+      position: "relative",
+      float: "right",
     },
   },
 });
