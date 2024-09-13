@@ -16,13 +16,13 @@ class App extends React.Component {
 
     this.state = { displayDrawer: false };
 
-    // Bind the event handler to the current instance
+    // bind the event handler to the current instance
     this.handleKeyPress = this.handleKeyPress.bind(this);
     this.handleDisplayDrawer = this.handleDisplayDrawer.bind(this);
     this.handleHideDrawer = this.handleHideDrawer.bind(this);
   }
 
-  // Sample data for courses and notifications
+  // sample data for courses and notifications
   listCourses = [
     { id: 1, name: "ES6", credit: 60 },
     { id: 2, name: "Webpack", credit: 20 },
@@ -35,14 +35,13 @@ class App extends React.Component {
     { id: 3, type: "urgent", html: getLatestNotification() },
   ];
 
-  // Handler for key press events
+  // handler for key press events
   handleKeyPress(e) {
     if (e.ctrlKey && e.key === "h") {
       alert("Logging you out");
       this.props.logOut();
     }
   }
-
 
   handleDisplayDrawer() {
     this.setState({ displayDrawer: true });
@@ -52,45 +51,50 @@ class App extends React.Component {
     this.setState({ displayDrawer: false });
   }
 
-  // Add event listener on mount
+  // add event listener on mount
   componentDidMount() {
     document.addEventListener("keydown", this.handleKeyPress);
   }
 
-  // Remove event listener on unmount
+  // remove event listener on unmount
   componentWillUnmount() {
     document.removeEventListener("keydown", this.handleKeyPress);
   }
 
   render() {
+    // destructuring displayDrawer from state
+    const { displayDrawer } = this.state;
+
     return (
       <React.Fragment>
-	    <div className={css(styles.App)}>
-	      <div className="heading-section">
-                <Notifications
-	          listNotifications={this.listNotifications}
-	          displayDrawer={this.state.displayDrawer}
-                  handleDisplayDrawer={this.handleDisplayDrawer}
-                  handleHideDrawer={this.handleHideDrawer}
-	        />
-                <Header />
-            </div>
-        {this.props.isLoggedIn ? (
-	  <BodySectionWithMarginBottom title="Course list">
-            <CourseList listCourses={this.listCourses} />
-	  </BodySectionWithMarginBottom>
-        ) : (
-	  <BodySectionWithMarginBottom title="Log in to continue">
-            <Login />
-	  </BodySectionWithMarginBottom>
-        )}
-	<BodySection title="News from the school">
+        <div className={css(styles.App)}>
+          <div className="heading-section">
+            <Notifications
+              listNotifications={this.listNotifications}
+              displayDrawer={displayDrawer}
+              handleDisplayDrawer={this.handleDisplayDrawer}
+              handleHideDrawer={this.handleHideDrawer}
+            />
+            <Header />
+          </div>
+          {this.props.isLoggedIn ? (
+            <BodySectionWithMarginBottom title="Course list">
+              <CourseList listCourses={this.listCourses} />
+            </BodySectionWithMarginBottom>
+          ) : (
+            <BodySectionWithMarginBottom title="Log in to continue">
+              <Login />
+            </BodySectionWithMarginBottom>
+          )}
+          <BodySection title="News from the school">
             <p>
-	    Lorem ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis at tempora odio, necessitatibus repudiandae reiciendis cum nemo sed asperiores ut molestiae eaque aliquam illo ipsa
-              iste vero dolor voluptates.
-	    </p>
-	  </BodySection>
-	  <Footer />
+              Lorem ipsum dolor sit amet consectetur adipisicing elit.
+              Perspiciatis at tempora odio, necessitatibus repudiandae
+              reiciendis cum nemo sed asperiores ut molestiae eaque aliquam
+              illo ipsa iste vero dolor voluptates.
+            </p>
+          </BodySection>
+          <Footer />
         </div>
       </React.Fragment>
     );
@@ -106,13 +110,13 @@ const styles = StyleSheet.create({
   },
 });
 
-// Default props for the component
+// default props for the component
 App.defaultProps = {
   isLoggedIn: false,
   logOut: () => {},
 };
 
-// Prop types for validation
+// prop types for validation
 App.propTypes = {
   isLoggedIn: PropTypes.bool,
   logOut: PropTypes.func,
