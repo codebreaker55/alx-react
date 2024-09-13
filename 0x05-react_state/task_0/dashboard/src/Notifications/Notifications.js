@@ -12,8 +12,8 @@ class Notifications extends Component {
   }
 
   shouldComponentUpdate(nextProps) {
-    // Updated condition to ensure proper re-render when props change
-    return nextProps.listNotifications.length > this.props.listNotifications.length;
+    // updated condition to ensure proper re-render when props change
+    return ((nextProps.listNotifications?.length || 0) > (this.props.listNotifications?.length || 0));
   }
 
   markAsRead(id) {
@@ -21,13 +21,13 @@ class Notifications extends Component {
   }
 
   render() {
-    // Destructure props here to avoid unnecessary prop lookups
+    // destructure props here to avoid unnecessary prop lookups
     const { displayDrawer, handleDisplayDrawer, handleHideDrawer, listNotifications } = this.props;
 
     return (
       <React.Fragment>
         {!displayDrawer ? (
-          // Ensure that the onClick uses the exact expected syntax
+          // ensure that the onClick uses the exact expected syntax
           <div className={css(styles.menuItem)} onClick={handleDisplayDrawer}>
             <p>Your notifications</p>
           </div>
@@ -47,7 +47,7 @@ class Notifications extends Component {
                 outline: "none",
               }}
               aria-label="Close"
-              // Correct usage of handleHideDrawer
+              // correct the usage of handleHideDrawer
               onClick={handleHideDrawer}
             >
               <img src={closeIcon} alt="close icon" width="10px" />

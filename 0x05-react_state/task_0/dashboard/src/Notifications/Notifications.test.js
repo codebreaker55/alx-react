@@ -110,7 +110,8 @@ describe("Notification tests", () => {
     ];
 
     const wrapper = shallow(<Notifications displayDrawer={true} listNotifications={listNotifications} />);
-    expect(wrapper.instance().shouldComponentUpdate(newListNotifications)).toBe(true);
+    const shouldUpdate = wrapper.instance().shouldComponentUpdate({ displayDrawer: true, listNotifications: newListNotifications });
+    expect(shouldUpdate).toBe(true);
   });
 });
 
