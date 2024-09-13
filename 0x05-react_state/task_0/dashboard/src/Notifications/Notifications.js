@@ -13,7 +13,7 @@ class Notifications extends Component {
   }
 
   shouldComponentUpdate(nextProps) {
-    return nextProps.length > this.props.listNotifications.length;
+    return nextProps.listNotifications.length > this.props.listNotifications.length;
   }
 
   markAsRead(id) {
@@ -21,10 +21,12 @@ class Notifications extends Component {
   }
 
   render() {
+    const { handleDisplayDrawer, handleHideDrawer, displayDrawer, listNotifications } = this.props;
+
     return (
       <React.Fragment>
-        {!this.props.displayDrawer ? (
-          <div className={css(styles.menuItem)} onClick={this.props.handleDisplayDrawer}>
+        {!displayDrawer ? (
+          <div className={css(styles.menuItem)} onClick={handleDisplayDrawer}>
             <p>Your notifications</p>
           </div>
         ) : (
@@ -43,19 +45,27 @@ class Notifications extends Component {
                 outline: "none",
               }}
               aria-label="Close"
-              onClick={(e) => {
+              onClick={() => {
                 console.log("Close button has been clicked");
-		this.props.handleHideDrawer();
+                handleHideDrawer();
               }}
             >
               <img src={closeIcon} alt="close icon" width="10px" />
             </button>
-            {this.props.listNotifications.length != 0 ? <p>Here is the list of notifications</p> : null}
+            {listNotifications.length !== 0 ? <p>Here is the list of notifications</p> : null}
             <ul>
-              {this.props.listNotifications.length == 0 ? <NotificationItem type="default" value="No new notification for now" /> : null}
-              {this.props.listNotifications.map((val, idx) => {
-                return <NotificationItem type={val.type} value={val.value} html={val.html} key={val.id} markAsRead={this.markAsRead} id={val.id} />;
-              })}
+              {listNotifications.length === 0 ? (
+                <NotificationItem type="default" value="No new notification for now" />
+              ) : null}
+              {listNotifications.map((val) => (
+                <NotificationItem
+                  type={val.type}
+                  value={val.value}
+                  html={val.html}
+                  key={val.id}
+                  markAsRead={() => this.markAsRead(val.id)}
+                />
+              ))}
             </ul>
           </div>
         )}
@@ -95,32 +105,15 @@ const styles = StyleSheet.create({
     },
   },
 
-  "notification-header": {
-	  display: "flex",
-	  justifyContent: "space-between",
-  },
-
   menuItem: {
-	  position: "relative",
-	  zIndex: 100,
-	  textAlign: "right",
-	  ":hover": {
-		  cursor: "pointer",
-		  animationName: [opacityAnim, bounceAnim],
-		  animationDuration: "1s, 0.5s",
-		  animationIterationCount: "3",
-    },
-  },
-
-  ul: {
-    "@media (max-width: 900px)": {
-	    padding: 0,
-    },
-  },
-  button: {
-    "@media (max-width: 900px)": {
-	    position: "relative",
-	    float: "right",
+    position: "relative",
+    zIndex: 100,
+    textAlign: "right",
+    ":hover": {
+      cursor: "pointer",
+      animationName: [opacityAnim, bounceAnim],
+      animationDuration: "1s, 0.5s",
+      animationIterationCount: "3",
     },
   },
 });
