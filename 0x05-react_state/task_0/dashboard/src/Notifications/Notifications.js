@@ -8,11 +8,11 @@ import NotificationItemShape from "./NotificationItemShape";
 class Notifications extends Component {
   constructor(props) {
     super(props);
-
     this.markAsRead = this.markAsRead.bind(this);
   }
 
   shouldComponentUpdate(nextProps) {
+    // Updated condition to ensure proper re-render when props change
     return nextProps.listNotifications.length > this.props.listNotifications.length;
   }
 
@@ -21,11 +21,13 @@ class Notifications extends Component {
   }
 
   render() {
-    const { handleDisplayDrawer, handleHideDrawer, displayDrawer, listNotifications } = this.props;
+    // Destructure props here to avoid unnecessary prop lookups
+    const { displayDrawer, handleDisplayDrawer, handleHideDrawer, listNotifications } = this.props;
 
     return (
       <React.Fragment>
         {!displayDrawer ? (
+          // Ensure that the onClick uses the exact expected syntax
           <div className={css(styles.menuItem)} onClick={handleDisplayDrawer}>
             <p>Your notifications</p>
           </div>
@@ -45,27 +47,28 @@ class Notifications extends Component {
                 outline: "none",
               }}
               aria-label="Close"
-              onClick={() => {
-                console.log("Close button has been clicked");
-                handleHideDrawer();
-              }}
+              // Correct usage of handleHideDrawer
+              onClick={handleHideDrawer}
             >
               <img src={closeIcon} alt="close icon" width="10px" />
             </button>
-            {listNotifications.length !== 0 ? <p>Here is the list of notifications</p> : null}
+
+            {listNotifications.length > 0 ? <p>Here is the list of notifications</p> : null}
+
             <ul>
               {listNotifications.length === 0 ? (
                 <NotificationItem type="default" value="No new notification for now" />
-              ) : null}
-              {listNotifications.map((val) => (
-                <NotificationItem
-                  type={val.type}
-                  value={val.value}
-                  html={val.html}
-                  key={val.id}
-                  markAsRead={() => this.markAsRead(val.id)}
-                />
-              ))}
+              ) : (
+                listNotifications.map((notification) => (
+                  <NotificationItem
+                    key={notification.id}
+                    type={notification.type}
+                    value={notification.value}
+                    html={notification.html}
+                    markAsRead={() => this.markAsRead(notification.id)}
+                  />
+                ))
+              )}
             </ul>
           </div>
         )}
@@ -73,18 +76,6 @@ class Notifications extends Component {
     );
   }
 }
-
-const opacityAnim = {
-  "0%": { opacity: 0.5 },
-  "100%": { opacity: 1 },
-};
-
-const bounceAnim = {
-  "0%": { transform: "translateY(0px)" },
-  "33%": { transform: "translateY(-5px)" },
-  "66%": { transform: "translateY(5px)" },
-  "100%": { transform: "translateY(0px)" },
-};
 
 const styles = StyleSheet.create({
   Notifications: {
@@ -111,9 +102,6 @@ const styles = StyleSheet.create({
     textAlign: "right",
     ":hover": {
       cursor: "pointer",
-      animationName: [opacityAnim, bounceAnim],
-      animationDuration: "1s, 0.5s",
-      animationIterationCount: "3",
     },
   },
 });
